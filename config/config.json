@@ -1,0 +1,12 @@
+{
+    "URL_ADDRESS": "https://testserver-naman.onrender.com/",
+    "PORT_NO": 4000,
+    "MONGO_DB_URL": "mongodb+srv://namanstakkdev:namanstakkdev@cluster.hzxxeuo.mongodb.net/CustomServer",
+    "LOGO_LOGIN":"Login Screen",
+    "LOGO_REGISTER":"Register Screen",
+    "LOGO_FORGOT":"Forgot Screen",
+    "LOGO_PROFILE":"Logged In Screen",
+    "TOKEN_EXPIRY": 7,
+    "AUTH_EMAIL": "testemailstakkdev@gmail.com",
+    "AUTH_PASSWORD": "durllcwmzvkuqcyp"
+}
