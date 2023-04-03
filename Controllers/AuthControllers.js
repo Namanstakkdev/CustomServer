@@ -142,19 +142,12 @@ module.exports.resetPassword = async (req, res, next) => {
               { email: email },
               { $set: { password: encryptedpassword } }
             ).then(() => {
-              res.status(400).json({
+              res.status(201).json({
                 status: "Success",
                 message: "Password Reset Successful",
               });
             });
-            // .then(() => {
-            //   // PassResetModel.deleteOne({ email }).then(() => {
-            //   res.status(400).json({
-            //     status: "Success",
-            //     message: "Password Reset Successful",
-            //   });
           });
-          // });
         } else {
           res
             .status(400)
