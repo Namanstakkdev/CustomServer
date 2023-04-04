@@ -79,17 +79,13 @@ module.exports.login = async (req, res, next) => {
     const data = await UserModel.find({ email });
     const admin = data[0].admin;
     const token = createToken(user._id);
-    await DataModel.find({ email }).then((data) => {
-      console.log(data);
-    });
 
     res.cookie("user_token", token, {
       withCrdentials: true,
       httpOnly: false,
       maxAge: maxAge * 1000,
-      admin,
     });
-    res.status(200).json({ user: user._id, created: true });
+    res.status(200).json({ user: user._id, created: true, admin: admin });
   } catch (err) {
     console.log(err);
     const errors = handleErrors(err);
