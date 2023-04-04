@@ -1,5 +1,5 @@
 {
-    "URL_ADDRESS": "https://testserver-naman.onrender.com/",
+    "URL_ADDRESS": "http://localhost:4000",
     "PORT_NO": 4000,
     "MONGO_DB_URL": "mongodb+srv://namanstakkdev:namanstakkdev@cluster.hzxxeuo.mongodb.net/CustomServer",
     "LOGO_LOGIN":"Login Screen",

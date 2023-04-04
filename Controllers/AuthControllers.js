@@ -1,5 +1,7 @@
 const UserModel = require("../models/UserModel");
 const PassResetModel = require("../models/PassResetModel");
+const DataModel = require("../models/DataModel");
+const { URL_ADDRESS } = require("../config/config.json");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const { AUTH_EMAIL, AUTH_PASSWORD } = require("../config/config.json");
@@ -34,10 +36,34 @@ const handleErrors = (err) => {
   return errors;
 };
 
+module.exports.postData = async (req, res, next) => {
+  try {
+    const { data } = req.body;
+    await DataModel.create({
+      data,
+      createdAt: Date.now(),
+      modifiedAt: Date.now(),
+    });
+    res
+      .status(201)
+      .json({ data: data, message: "Successfully Posted the Data to Server!" });
+  } catch (err) {
+    console.log(err);
+    const errors = handleErrors(err);
+    res.json({ errors, created: false });
+  }
+};
+
 module.exports.register = async (req, res, next) => {
   try {
-    const { username, email, phone, password } = req.body;
-    const user = await UserModel.create({ username, email, phone, password });
+    const { username, email, phone, password, admin } = req.body;
+    const user = await UserModel.create({
+      username,
+      email,
+      phone,
+      password,
+      admin,
+    });
     res.status(201).json({ user: user._id, email: email, created: true });
   } catch (err) {
     console.log(err);
@@ -50,12 +76,18 @@ module.exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await UserModel.login(email, password);
+    const data = await UserModel.find({ email });
+    const admin = data[0].admin;
     const token = createToken(user._id);
+    await DataModel.find({ email }).then((data) => {
+      console.log(data);
+    });
 
     res.cookie("user_token", token, {
       withCrdentials: true,
       httpOnly: false,
       maxAge: maxAge * 1000,
+      admin,
     });
     res.status(200).json({ user: user._id, created: true });
   } catch (err) {

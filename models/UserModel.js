@@ -21,8 +21,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Password is required"],
   },
+  admin: {
+    type: Boolean,
+    required: [true, "Admin field is required"],
+  },
 });
-
 
 userSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt();
