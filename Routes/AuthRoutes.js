@@ -6,6 +6,7 @@ const {
   resetPassword,
   test,
   postData,
+  getProfileData,
 } = require("../Controllers/AuthControllers");
 const { checkUser } = require("../Middlewares/AuthMiddlewares");
 
@@ -15,6 +16,7 @@ router.post("/", checkUser);
 router.get("/logout", signOut);
 router.post("/register", register);
 router.post("/login", login);
+router.post("/getdata", getProfileData);
 router.post("/send", forgotPassword);
 router.post("/test", test);
 router.post("/resetpassword", resetPassword);

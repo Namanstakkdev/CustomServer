@@ -36,6 +36,22 @@ const handleErrors = (err) => {
   return errors;
 };
 
+module.exports.getProfileData = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    await UserModel.find({ email }).then((data) => {
+      res.status(201).json({
+        data: data,
+        message: "Successfully Got the Data from the Server!",
+      });
+    });
+  } catch (err) {
+    console.log(err);
+    const errors = handleErrors(err);
+    res.json({ errors, created: false });
+  }
+};
+
 module.exports.postData = async (req, res, next) => {
   try {
     const { data } = req.body;
